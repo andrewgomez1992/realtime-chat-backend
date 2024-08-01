@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 import authRoutes from "./routes/AuthRoutes.js";
 
 dotenv.config();
@@ -9,6 +10,7 @@ dotenv.config();
 // push latest test
 const app = express();
 const port = process.env.PORT || 3001;
+const databaseURL = process.env.DATABASE_URL;
 
 // when using different servers we need to be able to communicate with the client which is why we need cors
 app.use(
@@ -29,3 +31,8 @@ app.use("/api/auth", authRoutes);
 const server = app.listen(port, () => {
   console.log("server is running on port " + port);
 });
+
+mongoose
+  .connect(databaseURL)
+  .then(() => console.log("DB Connection Successfull."))
+  .catch((err) => console.log(err.message));
