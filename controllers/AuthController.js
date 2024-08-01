@@ -10,6 +10,7 @@ const createToken = (email, userId) => {
   });
 };
 
+// pushing latest
 export const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
